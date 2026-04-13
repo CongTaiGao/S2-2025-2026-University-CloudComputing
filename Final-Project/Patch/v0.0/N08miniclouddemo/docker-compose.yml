@@ -119,7 +119,6 @@ services:
 
   monitoring-grafana-dashboard-server:
     image: grafana/grafana:latest
-    user: "root"
     container_name: monitoring-grafana-dashboard-server
     ports: ["3000:3000"]
     volumes:
