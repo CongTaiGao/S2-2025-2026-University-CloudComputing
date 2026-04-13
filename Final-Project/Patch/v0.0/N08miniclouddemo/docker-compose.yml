@@ -8,6 +8,7 @@ services:
     container_name: web-frontend-server
     networks: [cloud-net]
     ports: ["8080:80"]
+    restart: unless-stopped
     
 
   web-frontend-server1:
@@ -16,6 +17,7 @@ services:
     container_name: web-frontend-server1
     networks: [cloud-net]
     ports: ["8010:80"]
+    restart: unless-stopped
     
   web-frontend-server2:
     build: ./web-frontend-server
@@ -23,6 +25,7 @@ services:
     container_name: web-frontend-server2
     networks: [cloud-net]
     ports: ["8011:80"]
+    restart: unless-stopped
 
 
   application-backend-server:
@@ -34,6 +37,7 @@ services:
     environment:
       OIDC_ISSUER: "http://authentication-identity-server:8080/realms/realm_N08"
       OIDC_AUDIENCE: "account"
+    restart: unless-stopped
 
   relational-database-server:
     image: mariadb:11
@@ -45,6 +49,7 @@ services:
       - ./relational-database-server/init:/docker-entrypoint-initdb.d:ro
     ports: ["3306:3306"]
     networks: [cloud-net]
+    restart: unless-stopped
 
   authentication-identity-server:
     image: quay.io/keycloak/keycloak:latest
@@ -73,6 +78,7 @@ services:
       - ./object-storage-server/data:/data
     ports: ["9000:9000", "9001:9001"]
     networks: [cloud-net]
+    restart: unless-stopped
 
   internal-dns-server:
     image: internetsystemsconsortium/bind9:9.18
@@ -84,6 +90,7 @@ services:
       - ./internal-dns-server/named.conf.local:/etc/bind/named.conf.local:ro
       - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
     networks: [cloud-net]
+    restart: unless-stopped
     
     
   monitoring-nginx-exporter:
@@ -92,12 +99,14 @@ services:
     command: ["-nginx.scrape-uri=http://web-frontend-server/nginx_status"]
     ports: ["9113:9113"]
     networks: [cloud-net]
+    restart: unless-stopped
     
   monitoring-node-exporter-server:
     image: prom/node-exporter:latest
     container_name: monitoring-node-exporter-server
     ports: ["9100:9100"]
     networks: [cloud-net]
+    restart: unless-stopped
 
   monitoring-prometheus-server:
     image: prom/prometheus:latest
@@ -106,6 +115,7 @@ services:
     volumes:
       - ./monitoring-prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     networks: [cloud-net]
+    restart: unless-stopped
 
   monitoring-grafana-dashboard-server:
     image: grafana/grafana:latest
@@ -114,6 +124,7 @@ services:
     volumes:
       - ./monitoring-grafana-dashboard-server/data:/var/lib/grafana
     networks: [cloud-net]
+    restart: unless-stopped
     
   api-gateway-proxy-server:
     image: nginx:stable
