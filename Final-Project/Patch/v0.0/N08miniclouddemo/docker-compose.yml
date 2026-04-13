@@ -119,7 +119,7 @@ services:
 
   monitoring-grafana-dashboard-server:
     image: grafana/grafana:latest
-    command: ["sh -c "chown -R 472:472 /var/lib/grafana && /run.sh"]
+    command: ["sh -c "chown -R 472:472 /var/lib/grafana && /run.sh""]
     container_name: monitoring-grafana-dashboard-server
     ports: ["3000:3000"]
     volumes:
