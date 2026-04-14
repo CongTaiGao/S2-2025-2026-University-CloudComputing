@@ -10,13 +10,13 @@
 
 ## Tải về bằng Git:
 ```bash
-git clone https://github.com/CongTaiGao/S2-2025-2026-University-CloudComputing.git
+git clone https://github.com/CongTaiGao/Project-MiniCloud.git
 ```
 
 Nếu gặp lỗi permission denied trên localhost
 
 ```bash
-sudo chmod 755 -R ./S2-2025-2026-University-CloudComputing
+sudo chmod 755 -R ./Project-MiniCloud
 ```
 
 ## DOCKER
