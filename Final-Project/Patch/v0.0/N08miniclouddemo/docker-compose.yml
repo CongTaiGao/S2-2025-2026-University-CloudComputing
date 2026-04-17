@@ -118,6 +118,7 @@ services:
     restart: unless-stopped
 
   monitoring-grafana-dashboard-server:
+    user: "root"
     image: grafana/grafana:latest
     container_name: monitoring-grafana-dashboard-server
     ports: ["3000:3000"]
