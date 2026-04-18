@@ -4,7 +4,7 @@ from jose import jwt
 import mysql.connector
 
 ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identity-server:8080/realms/realm_N08")
-ISSUER_AUTH = "http://localhost:8080/realms/realm_N08"
+ISSUER_AUTH = "http://localhost:8081/realms/realm_N08"
 AUDIENCE = os.getenv("OIDC_AUDIENCE", "flask-app")
 JWKS_URL = f"{ISSUER}/protocol/openid-connect/certs"
 _JWKS = None; _TS = 0
@@ -25,7 +25,7 @@ def secure():
         return jsonify(error="Missing Bearer token"), 401
     token = auth.split(" ",1)[1]
     try:
-        payload = jwt.decode(token, get_jwks(), algorithms=["RS256"], audience=AUDIENCE, issuer=ISSUER_AUTH)
+        payload = jwt.decode(token, get_jwks(), algorithms=["RS256"], audience=AUDIENCE, issuer=ISSUER)
         return jsonify(message="Secure resource OK", preferred_username=payload.get("preferred_username"))
     except Exception as e:
         return jsonify(error=str(e)), 401

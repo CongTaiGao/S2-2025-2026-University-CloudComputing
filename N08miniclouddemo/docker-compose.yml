@@ -59,7 +59,7 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_HOSTNAME: "localhost"
+      #KC_HOSTNAME: "localhost"
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "true"
     ports: ["8081:8080"]
